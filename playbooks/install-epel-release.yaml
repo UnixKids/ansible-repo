@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Install epel-release repo
+    yum:
+      name: epel-release
+      state: latest 
+
