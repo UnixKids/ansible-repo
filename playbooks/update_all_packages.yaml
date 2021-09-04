@@ -1,0 +1,16 @@
+---
+  - hosts: all
+    become: true
+    tasks:
+
+    - name: update packages on Rocky nodes
+      yum:
+        name: '*'
+        state: latest
+      when: ansible_distribution in ['Rocky', 'RHEL']
+
+    - name: update packes on Ubuntu nodes
+      apt:
+        name: '*'
+        state: latest
+      when: ansible_distribution in ['Ubuntu', 'Debian']
