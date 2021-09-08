@@ -1,0 +1,16 @@
+---
+
+- hosts: practice
+  become: true
+  tasks:
+
+  - name: update repository index
+    apt:
+      update_cache: yes
+    when: ansible_distribution in ['Ubuntu', 'Debian']
+    #ansible -m gather_facts --limit host | grep ansible_distribution
+  
+  - name: update repository index
+    yum:
+      update_cache: yes
+    when: ansible_distribution in ['RHEL', 'CentOS']

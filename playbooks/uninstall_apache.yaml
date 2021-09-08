@@ -1,0 +1,19 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: update repository index
+    yum:
+      update_cache: yes 
+
+  - name: remove httpd package
+    yum:
+       name: httpd
+       state: absent
+
+  - name: remove screen package
+    yum:
+      name: screen
+      state: absent

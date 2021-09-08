@@ -1,0 +1,21 @@
+---
+
+- hosts: ansible
+  become: true
+  tasks:
+    
+  - name: change e-mail address for admin
+    tags: httpd, centos, apache
+    lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^ServerAdmin'
+      line: ServerAdmin somebody@somewhere.net
+    when: ansible_distribution in ['Rocky', 'Centos']
+    register: httpd
+
+  - name: restart httpd
+    tags: httpd, centos, apache
+    service:
+      name: httpd
+      state: restarted
+    when: httpd.changed

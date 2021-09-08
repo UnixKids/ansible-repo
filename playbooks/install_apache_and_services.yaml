@@ -1,0 +1,29 @@
+---
+
+- hosts: ansible
+  become: true
+  tasks:
+
+    - name: install apache and php on Ubuntu Servers
+      apt:
+        name:
+          - apache2
+          - libapache2-mod-php
+        state: latest
+        update_cache: yes
+      when: ansible_distribution in ['Debain', 'Ubuntu']
+    - name: install apache and php on Centos Servers
+      yum:
+        name:
+          - httpd
+          - php
+        state: latest
+        update_cache: yes
+      when: ansible_distribution in ['Rocky', 'Centos']
+    - name: start httpd
+      tags: centos, apache, httpd
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+      when: ansible_distribution in ['Rocky', 'Centos']

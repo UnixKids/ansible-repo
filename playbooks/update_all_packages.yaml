@@ -1,5 +1,5 @@
 ---
-  - hosts: all
+  - hosts: cloud_node
     become: true
     tasks:
 
@@ -7,7 +7,7 @@
       yum:
         name: '*'
         state: latest
-      when: ansible_distribution in ['Rocky', 'RHEL']
+      when: ansible_distribution in ['Rocky', 'RedHat']
 
     - name: update packes on Ubuntu nodes
       apt:
